@@ -1,4 +1,4 @@
-name: Cloud Android Emulator - DucThang x TrueHieu Edition
+name: Cloud Emulator
 
 on:
   workflow_dispatch:
@@ -67,8 +67,8 @@ jobs:
         run: |
           set -e
           for i in $(seq 1 60); do
-            STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null | tr -d '' || echo "0")
-            BOOTANIM=$(docker exec android adb shell getprop init.svc.bootanim 2>/dev/null | tr -d '' || echo "running")
+            STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null | sed 's///g' || echo "0")
+            BOOTANIM=$(docker exec android adb shell getprop init.svc.bootanim 2>/dev/null | sed 's///g' || echo "running")
             echo "⏳ Check $i/60 — boot_completed=$STATUS bootanim=$BOOTANIM"
             # Droid logo freeze: bootanim still running after 3 min → force restart
             if [ "$i" -eq 30 ] && [ "$STATUS" != "1" ]; then
