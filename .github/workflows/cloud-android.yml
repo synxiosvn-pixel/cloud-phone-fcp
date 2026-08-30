@@ -67,8 +67,8 @@ jobs:
         run: |
           set -e
           for i in $(seq 1 60); do
-            STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null | xargs || echo "0")
-            BOOTANIM=$(docker exec android adb shell getprop init.svc.bootanim 2>/dev/null | xargs || echo "running")
+            STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null | tr -d '' || echo "0")
+            BOOTANIM=$(docker exec android adb shell getprop init.svc.bootanim 2>/dev/null | tr -d '' || echo "running")
             echo "⏳ Check $i/60 — boot_completed=$STATUS bootanim=$BOOTANIM"
             # Droid logo freeze: bootanim still running after 3 min → force restart
             if [ "$i" -eq 30 ] && [ "$STATUS" != "1" ]; then
@@ -100,7 +100,7 @@ jobs:
             sleep 10
           done
           # Final check
-          STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null | xargs || echo "0")
+          STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null | tr -d '' || echo "0")
           if [ "$STATUS" != "1" ]; then
             echo "❌ Still not booted, dumping logs for debug"
             docker logs android --tail 200 || true
