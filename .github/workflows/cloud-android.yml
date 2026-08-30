@@ -62,7 +62,7 @@ jobs:
           echo "Container started, waiting for emulator boot..."
           sleep 25
           docker exec android sh -c 'ls -l /dev/kvm; test -r /dev/kvm && echo KVM_OK || echo KVM_MISSING' 2>/dev/null || true
-          docker exec android sh -c 'echo "=== supported devices ==="; ls /opt/android/config/device 2>/dev/null || find /opt/android -maxdepth 3 -type d -iname "*device*" 2>/dev/null; echo "=== AVDs ==="; $ANDROID_HOME/emulator/emulator -list-avds 2>&1 | head; echo "=== emu.log tail ==="; find / -name emu.log -mmin -15 2>/dev/null | head -1 | xargs -r tail -n 60' 2>/dev/null || true
+          docker exec android sh -c 'echo "=== APP_PATH ==="; echo $APP_PATH; ls -la $APP_PATH 2>/dev/null; echo "=== supervisord device ==="; grep -n -B1 -A4 "program:device\|program:appium" $APP_PATH/supervisord.conf 2>/dev/null; echo "=== system-images ==="; ls $ANDROID_HOME/system-images 2>/dev/null; echo "=== AVDs ==="; $ANDROID_HOME/emulator/emulator -list-avds 2>&1 | head; echo "=== device_status ==="; cat device_status 2>/dev/null || echo "(no device_status)"' 2>/dev/null || true
           docker exec android supervisorctl status 2>/dev/null || echo "supervisord not responding"
           docker exec android ps aux 2>/dev/null | grep -E 'qemu|emulator' | head -n 3 || true
           docker exec android adb devices || true
@@ -83,6 +83,8 @@ jobs:
               echo "⚠️ Slow boot at 5min — diagnosing..."
               docker exec android sh -c 'ls -l /dev/kvm; test -r /dev/kvm && echo KVM_OK || echo KVM_MISSING' 2>/dev/null || true
               docker exec android sh -c 'echo "=== emu.log tail ==="; find / -name emu.log -mmin -15 2>/dev/null | head -1 | xargs -r tail -n 80' 2>/dev/null || true
+              docker exec android sh -c 'echo "=== device_status ==="; cat device_status 2>/dev/null || echo "(no device_status)"' 2>/dev/null || true
+              docker exec android sh -c 'echo "=== relaunch device script ==="; bash -x $APP_PATH/device.sh 2>&1 | tail -n 40' 2>/dev/null || echo "(no device.sh)"
               docker exec android sh -c 'echo "=== qemu ps ==="; ps aux 2>/dev/null | grep -E "qemu|emulator" | head -n 5' 2>/dev/null || true
               docker exec android supervisorctl status 2>/dev/null || echo "supervisord not responding (socket missing)"
               docker logs android --tail 200 || true
