@@ -55,12 +55,15 @@ jobs:
             -e WEB_VNC=true \
             -e EMULATOR_NO_SKIN=true \
             -e EMULATOR_HEADLESS=true \
-            -e EMULATOR_ARGS="-no-window -no-audio -no-boot-anim -no-metrics -memory 4096 -cores 4 -accel on -gpu swiftshader_indirect -no-snapshot" \
+            -e EMULATOR_ARGS="-no-window -no-audio -no-boot-anim -no-metrics -memory 4096 -cores 4 -accel auto -gpu swiftshader_indirect -no-snapshot" \
             -e WEB_LOG=true \
             -v "$GITHUB_WORKSPACE/android-data:/data" \
             budtmo/docker-android:emulator_14.0
           echo "Container started, waiting for emulator boot..."
           sleep 30
+          docker exec android sh -c 'ls -l /dev/kvm; test -r /dev/kvm && echo KVM_OK || echo KVM_MISSING' 2>/dev/null || true
+          docker exec android supervisorctl status 2>/dev/null || true
+          docker exec android ps aux 2>/dev/null | grep -E 'qemu|emulator' | head -n 3 || true
           docker exec android adb devices || true
           docker logs android --tail 50 || true
           docker ps -a
@@ -71,10 +74,14 @@ jobs:
           for i in $(seq 1 90); do
             STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null || echo "0")
             BOOTANIM=$(docker exec android adb shell getprop init.svc.bootanim 2>/dev/null || echo "running")
-            echo "⏳ Check $i/90 — boot_completed=$STATUS bootanim=$BOOTANIM"
-            # Droid logo freeze recovery: adb daemon stale or bootanim stuck → restart adb, don't nuke container
+            DEVICE_ST=$(docker exec android supervisorctl status device 2>/dev/null | head -1 || echo "device=?")
+            echo "⏳ Check $i/90 — boot=$STATUS anim=$BOOTANIM $DEVICE_ST"
+            # Droid logo freeze recovery: diagnose then recover adb
             if [ "$i" -eq 30 ] && [ "$STATUS" != "1" ]; then
-              echo "⚠️ Detected slow boot at 5min, recovering adb (no container restart)..."
+              echo "⚠️ Slow boot at 5min — diagnosing..."
+              docker exec android supervisorctl status 2>/dev/null || true
+              docker exec android ps aux 2>/dev/null | grep -E 'qemu|emulator' | head -n 3 || true
+              docker logs android --tail 200 || true
               docker exec android adb kill-server 2>/dev/null || true
               docker exec android adb start-server 2>/dev/null || true
               docker exec android adb wait-for-device 2>/dev/null || true
@@ -82,7 +89,7 @@ jobs:
               docker exec android adb shell "setprop ctl.stop bootanim" 2>/dev/null || true
               docker exec android adb shell input keyevent 82 2>/dev/null || true
               docker exec android adb shell wm dismiss-keyguard 2>/dev/null || true
-              sleep 5
+              sleep 15
             fi
             if [ "$STATUS" = "1" ]; then
               echo "✅ Android booted after ~$((i*10))s"
@@ -93,12 +100,13 @@ jobs:
               docker exec android adb shell settings put global transition_animation_scale 0 || true
               break
             fi
-            # If container died, restart
-            if ! docker ps | grep -q android; then
-              echo "❌ Container died, restarting..."
+            # If container died or emulator process FATAL, restart
+            if ! docker ps | grep -q android || docker exec android supervisorctl status device 2>/dev/null | grep -q "FATAL"; then
+              echo "❌ Emulator process down (device FATAL or container died), restarting container..."
               docker logs android --tail 100 || true
               docker rm -f android 2>/dev/null || true
-              docker run -d --name android --device /dev/kvm --privileged --shm-size=2g -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="Pixel 6" -e EMULATOR_PLATFORM_VERSION=14 -e WEB_VNC=true -e EMULATOR_NO_SKIN=true -e EMULATOR_HEADLESS=true -e EMULATOR_ARGS="-no-window -no-audio -no-boot-anim -no-metrics -memory 4096 -cores 4 -accel on -gpu swiftshader_indirect -no-snapshot" -e WEB_LOG=true budtmo/docker-android:emulator_14.0
+              docker run -d --name android --device /dev/kvm --privileged --shm-size=2g -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="Pixel 6" -e EMULATOR_PLATFORM_VERSION=14 -e WEB_VNC=true -e EMULATOR_NO_SKIN=true -e EMULATOR_HEADLESS=true -e EMULATOR_ARGS="-no-window -no-audio -no-boot-anim -no-metrics -memory 3072 -cores 4 -accel auto -gpu swiftshader_indirect -no-snapshot" -e WEB_LOG=true budtmo/docker-android:emulator_14.0
+              sleep 30
             fi
             sleep 10
           done
