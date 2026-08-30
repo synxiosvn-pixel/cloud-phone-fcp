@@ -44,19 +44,19 @@ jobs:
           # Clean previous snapshot that causes Droid freeze
           rm -rf "$GITHUB_WORKSPACE/android-data/snapshots" || true
           docker rm -f android 2>/dev/null || true
-          docker run -d --name android \
-            --device /dev/kvm \
-            --privileged \
-            --shm-size=2g \
-            -p 6080:6080 \
-            -p 5554:5554 -p 5555:5555 \
-            -e EMULATOR_DEVICE="Pixel 6" \
-            -e WEB_VNC=true \
-            -e EMULATOR_NO_SKIN=true \
-            -e EMULATOR_HEADLESS=false \
-            -e EMULATOR_ARGS="-memory 4096 -cores 4 -accel on -gpu swiftshader_indirect -no-snapshot -no-snapshot-save -wipe-data -no-boot-anim -no-audio -camera-back none -camera-front none -feature -Vulkan" \
-            -e WEB_LOG=true \
-            -v "$GITHUB_WORKSPACE/android-data:/data" \
+          docker run -d --name android \\
+            --device /dev/kvm \\
+            --privileged \\
+            --shm-size=2g \\
+            -p 6080:6080 \\
+            -p 5554:5554 -p 5555:5555 \\
+            -e EMULATOR_DEVICE="Pixel 6" \\
+            -e WEB_VNC=true \\
+            -e EMULATOR_NO_SKIN=true \\
+            -e EMULATOR_HEADLESS=false \\
+            -e EMULATOR_ARGS="-memory 4096 -cores 4 -accel on -gpu swiftshader_indirect -no-snapshot -no-snapshot-save -wipe-data -no-boot-anim -no-audio -camera-back none -camera-front none -feature -Vulkan" \\
+            -e WEB_LOG=true \\
+            -v "$GITHUB_WORKSPACE/android-data:/data" \\
             budtmo/docker-android:emulator_14.0
           echo "Container started, waiting for emulator boot..."
           sleep 15
@@ -67,8 +67,8 @@ jobs:
         run: |
           set -e
           for i in $(seq 1 60); do
-            STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null | tr -d '' || echo "0")
-            BOOTANIM=$(docker exec android adb shell getprop init.svc.bootanim 2>/dev/null | tr -d '' || echo "running")
+            STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' || echo "0")
+            BOOTANIM=$(docker exec android adb shell getprop init.svc.bootanim 2>/dev/null | tr -d '\r' || echo "running")
             echo "⏳ Check $i/60 — boot_completed=$STATUS bootanim=$BOOTANIM"
             # Droid logo freeze: bootanim still running after 3 min → force restart
             if [ "$i" -eq 30 ] && [ "$STATUS" != "1" ]; then
@@ -100,7 +100,7 @@ jobs:
             sleep 10
           done
           # Final check
-          STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null | tr -d '' || echo "0")
+          STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' || echo "0")
           if [ "$STATUS" != "1" ]; then
             echo "❌ Still not booted, dumping logs for debug"
             docker logs android --tail 200 || true
@@ -130,7 +130,7 @@ jobs:
         run: |
           URL=""
           for i in $(seq 1 60); do
-            if grep -oE 'https://[a-zA-Z0-9-]+\.trycloudflare\.com' cloudflared.log | head -1 > /tmp/url.txt && [ -s /tmp/url.txt ]; then
+            if grep -oE 'https://[a-zA-Z0-9-]+\\.trycloudflare\\.com' cloudflared.log | head -1 > /tmp/url.txt && [ -s /tmp/url.txt ]; then
               URL=$(cat /tmp/url.txt)
               break
             fi
