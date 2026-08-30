@@ -50,7 +50,7 @@ jobs:
             --shm-size=2g \
             -p 6080:6080 \
             -p 5554:5554 -p 5555:5555 \
-            -e EMULATOR_DEVICE="Pixel 6" \
+            -e EMULATOR_DEVICE="pixel_6" \
             -e EMULATOR_PLATFORM_VERSION=14 \
             -e WEB_VNC=true \
             -e EMULATOR_NO_SKIN=true \
@@ -62,7 +62,7 @@ jobs:
           echo "Container started, waiting for emulator boot..."
           sleep 25
           docker exec android sh -c 'ls -l /dev/kvm; test -r /dev/kvm && echo KVM_OK || echo KVM_MISSING' 2>/dev/null || true
-          docker exec android sh -c 'echo "=== AVDs ==="; ls $ANDROID_HOME/emulator/emulator 2>/dev/null; $ANDROID_HOME/emulator/emulator -list-avds 2>&1 | head; echo "=== emu.log tail ==="; find / -name emu.log -mmin -15 2>/dev/null | head -1 | xargs -r tail -n 60' 2>/dev/null || true
+          docker exec android sh -c 'echo "=== supported devices ==="; ls /opt/android/config/device 2>/dev/null || find /opt/android -maxdepth 3 -type d -iname "*device*" 2>/dev/null; echo "=== AVDs ==="; $ANDROID_HOME/emulator/emulator -list-avds 2>&1 | head; echo "=== emu.log tail ==="; find / -name emu.log -mmin -15 2>/dev/null | head -1 | xargs -r tail -n 60' 2>/dev/null || true
           docker exec android supervisorctl status 2>/dev/null || echo "supervisord not responding"
           docker exec android ps aux 2>/dev/null | grep -E 'qemu|emulator' | head -n 3 || true
           docker exec android adb devices || true
@@ -109,7 +109,7 @@ jobs:
               echo "❌ Emulator down (no qemu process) — restarting container ($RESTARTED/2)..."
               docker logs android --tail 100 || true
               docker rm -f android 2>/dev/null || true
-              docker run -d --name android --device /dev/kvm --privileged --shm-size=2g -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="Pixel 6" -e EMULATOR_PLATFORM_VERSION=14 -e WEB_VNC=true -e EMULATOR_NO_SKIN=true -e EMULATOR_HEADLESS=true -e EMULATOR_ARGS="-no-window -no-audio -no-boot-anim -no-metrics -memory 2048 -cores 2 -accel auto -gpu swiftshader_indirect -no-snapshot" -e WEB_LOG=true budtmo/docker-android:emulator_14.0
+              docker run -d --name android --device /dev/kvm --privileged --shm-size=2g -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="pixel_6" -e EMULATOR_PLATFORM_VERSION=14 -e WEB_VNC=true -e EMULATOR_NO_SKIN=true -e EMULATOR_HEADLESS=true -e EMULATOR_ARGS="-no-window -no-audio -no-boot-anim -no-metrics -memory 2048 -cores 2 -accel auto -gpu swiftshader_indirect -no-snapshot" -e WEB_LOG=true budtmo/docker-android:emulator_14.0
               sleep 30
             fi
             sleep 10
