@@ -38,31 +38,14 @@ jobs:
           # budtmo/docker-android: x86_64 AOSP 14 + noVNC + adb, KVM accelerated
           docker pull budtmo/docker-android:emulator_14.0
 
-      - name: Start Android (Pixel 6, API 34, 4GB RAM, 4 cores) — fix freeze
+      - name: Start Android (Pixel 8, API 34, 4GB RAM, 4 cores) — fix create
         run: |
-          mkdir -p "$GITHUB_WORKSPACE/android-data"
-          # Clean previous snapshot that causes Droid freeze
-          rm -rf "$GITHUB_WORKSPACE/android-data/snapshots" || true
           docker rm -f android 2>/dev/null || true
-          docker run -d --name android \
-            --device /dev/kvm \
-            --privileged \
-            --shm-size=2g \
-            -p 6080:6080 \
-            -p 5554:5554 -p 5555:5555 \
-            -e EMULATOR_DEVICE="pixel_6" \
-            -e EMULATOR_PLATFORM_VERSION=14 \
-            -e WEB_VNC=true \
-            -e EMULATOR_NO_SKIN=true \
-            -e EMULATOR_HEADLESS=true \
-            -e EMULATOR_ARGS="-no-window -no-audio -no-boot-anim -no-metrics -memory 4096 -cores 4 -accel auto -gpu swiftshader_indirect -no-snapshot" \
-            -e WEB_LOG=true \
-            -v "$GITHUB_WORKSPACE/android-data:/data" \
-            budtmo/docker-android:emulator_14.0
+          docker run -d --name android             --device /dev/kvm             --privileged             --shm-size=2g             -p 6080:6080             -p 5554:5554 -p 5555:5555             -e EMULATOR_DEVICE="Pixel 8"             -e EMULATOR_PLATFORM_VERSION=14.0             -e WEB_VNC=true             -e EMULATOR_NO_SKIN=true             -e EMULATOR_ARGS="-no-audio -no-boot-anim -no-metrics -memory 4096 -cores 4 -no-snapshot"             -e WEB_LOG=true             budtmo/docker-android:emulator_14.0
           echo "Container started, waiting for emulator boot..."
           sleep 25
           docker exec android sh -c 'ls -l /dev/kvm; test -r /dev/kvm && echo KVM_OK || echo KVM_MISSING' 2>/dev/null || true
-          docker exec android sh -c 'echo "=== APP_PATH ==="; echo $APP_PATH; ls -la $APP_PATH 2>/dev/null; echo "=== supervisord device ==="; grep -n -B1 -A4 "program:device\|program:appium" $APP_PATH/supervisord.conf 2>/dev/null; echo "=== system-images ==="; ls $ANDROID_HOME/system-images 2>/dev/null; echo "=== AVDs ==="; $ANDROID_HOME/emulator/emulator -list-avds 2>&1 | head; echo "=== device_status ==="; cat device_status 2>/dev/null || echo "(no device_status)"' 2>/dev/null || true
+          docker exec android sh -c 'echo "=== docker-android logs ==="; find /home/androidusr /opt -name "*.log" -mmin -10 2>/dev/null | while read f; do echo "### $f"; tail -n 25 "$f"; done' 2>/dev/null || true
           docker exec android supervisorctl status 2>/dev/null || echo "supervisord not responding"
           docker exec android ps aux 2>/dev/null | grep -E 'qemu|emulator' | head -n 3 || true
           docker exec android adb devices || true
@@ -83,8 +66,8 @@ jobs:
               echo "⚠️ Slow boot at 5min — diagnosing..."
               docker exec android sh -c 'ls -l /dev/kvm; test -r /dev/kvm && echo KVM_OK || echo KVM_MISSING' 2>/dev/null || true
               docker exec android sh -c 'echo "=== emu.log tail ==="; find / -name emu.log -mmin -15 2>/dev/null | head -1 | xargs -r tail -n 80' 2>/dev/null || true
-              docker exec android sh -c 'echo "=== device_status ==="; cat device_status 2>/dev/null || echo "(no device_status)"' 2>/dev/null || true
-              docker exec android sh -c 'echo "=== relaunch device script ==="; bash -x $APP_PATH/device.sh 2>&1 | tail -n 40' 2>/dev/null || echo "(no device.sh)"
+              docker exec android sh -c 'echo "=== docker-android logs ==="; find /home/androidusr /opt -name "*.log" 2>/dev/null | while read f; do echo "### $f"; tail -n 30 "$f"; done' 2>/dev/null || true
+              docker exec android sh -c 'echo "=== adb logcat (boot errors) ==="; adb logcat -d -t 30 2>/dev/null | tail -n 30' 2>/dev/null || true
               docker exec android sh -c 'echo "=== qemu ps ==="; ps aux 2>/dev/null | grep -E "qemu|emulator" | head -n 5' 2>/dev/null || true
               docker exec android supervisorctl status 2>/dev/null || echo "supervisord not responding (socket missing)"
               docker logs android --tail 200 || true
@@ -111,7 +94,7 @@ jobs:
               echo "❌ Emulator down (no qemu process) — restarting container ($RESTARTED/2)..."
               docker logs android --tail 100 || true
               docker rm -f android 2>/dev/null || true
-              docker run -d --name android --device /dev/kvm --privileged --shm-size=2g -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="pixel_6" -e EMULATOR_PLATFORM_VERSION=14 -e WEB_VNC=true -e EMULATOR_NO_SKIN=true -e EMULATOR_HEADLESS=true -e EMULATOR_ARGS="-no-window -no-audio -no-boot-anim -no-metrics -memory 2048 -cores 2 -accel auto -gpu swiftshader_indirect -no-snapshot" -e WEB_LOG=true budtmo/docker-android:emulator_14.0
+              docker run -d --name android --device /dev/kvm --privileged --shm-size=2g -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="Pixel 8" -e EMULATOR_PLATFORM_VERSION=14.0 -e WEB_VNC=true -e EMULATOR_NO_SKIN=true -e EMULATOR_ARGS="-no-audio -no-boot-anim -no-metrics -memory 2048 -cores 2 -no-snapshot" -e WEB_LOG=true budtmo/docker-android:emulator_14.0
               sleep 30
             fi
             sleep 10
