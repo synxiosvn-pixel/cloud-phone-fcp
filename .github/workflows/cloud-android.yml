@@ -111,6 +111,19 @@ jobs:
           docker exec android adb devices || true
           docker exec android adb shell dumpsys window windows | grep -E "mCurrentFocus|mFocusedApp" | head -n 5 || true
 
+      - name: Setup streamer (ffmpeg + websockets, inside container)
+        run: |
+          docker exec android sh -c "apt-get update -qq 2>&1 | tail -1; DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ffmpeg x11-utils python3-websockets 2>&1 | tail -2; python3 -c 'import websockets; print("websockets", websockets.__version__)'"
+
+      - name: Start H.264 stream server (WS video 9010 + WS input 9011)
+        run: |
+          echo "aW1wb3J0IGFzeW5jaW8sIHN1YnByb2Nlc3MsIG9zLCByZSwgc3lzLCBqc29uLCB0aW1lCgpTVFJFQU1fUE9SVCA9IGludChvcy5lbnZpcm9uLmdldCgiU1RSRUFNX1BPUlQiLCAiOTAxMCIpKQpDVFJMX1BPUlQgPSBpbnQob3MuZW52aXJvbi5nZXQoIkNUUkxfUE9SVCIsICI5MDExIikpCkxPRyA9ICIvdG1wL3N0cmVhbV9zZXJ2ZXIubG9nIgoKZGVmIGxvZygqYSk6CiAgICB0cnk6CiAgICAgICAgd2l0aCBvcGVuKExPRywgImEiKSBhcyBmOgogICAgICAgICAgICBmLndyaXRlKCJbIiArIHRpbWUuc3RyZnRpbWUoIiVIOiVNOiVTIikgKyAiXSAiICsgIiAiLmpvaW4oc3RyKHgpIGZvciB4IGluIGEpICsgIlxuIikKICAgIGV4Y2VwdCBFeGNlcHRpb246CiAgICAgICAgcGFzcwoKZGVmIHNoKCpjbWQsIHRpbWVvdXQ9MjApOgogICAgdHJ5OgogICAgICAgIHAgPSBzdWJwcm9jZXNzLnJ1bihsaXN0KGNtZCksIGNhcHR1cmVfb3V0cHV0PVRydWUsIHRleHQ9VHJ1ZSwgdGltZW91dD10aW1lb3V0KQogICAgICAgIHJldHVybiBwLnN0ZG91dAogICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgICAgIGxvZygic2ggZXJyIiwgcmVwcihlKSkKICAgICAgICByZXR1cm4gIiIKCmRlZiBkZXRlY3RfZ2VvKGRpc3BsYXkpOgogICAgb3V0ID0gc2goInh3aW5pbmZvIiwgIi1kaXNwbGF5IiwgZGlzcGxheSwgIi1yb290IiwgIi10cmVlIikKICAgIGJlc3QgPSBOb25lCiAgICBmb3IgbGluZSBpbiBvdXQuc3BsaXRsaW5lcygpOgogICAgICAgIG0gPSByZS5zZWFyY2gocicweFswLTlhLWZdKyAiKFteIl0qKSI6P1xzKi4qPyhcZCspeChcZCspXCsoXGQrKVwrKFxkKyknLCBsaW5lKQogICAgICAgIGlmIG5vdCBtOgogICAgICAgICAgICBjb250aW51ZQogICAgICAgIG5hbWUsIHcsIGgsIHgsIHkgPSBtLmdyb3VwKDEpLCBpbnQobS5ncm91cCgyKSksIGludChtLmdyb3VwKDMpKSwgaW50KG0uZ3JvdXAoNCkpLCBpbnQobS5ncm91cCg1KSkKICAgICAgICBpZiB3ID49IDQwMCBhbmQgaCA+PSA1MDAgYW5kIHJlLnNlYXJjaChyJyhlbXVsYXRvcnxwaXhlbHxuZXh1c3xnYWxheHl8YXBpfGFuZHJvaWR8dGVzdCknLCBuYW1lLCByZS5JKToKICAgICAgICAgICAgYmVzdCA9IChuYW1lLCB3LCBoLCB4LCB5KQogICAgICAgICAgICBicmVhawogICAgaWYgYmVzdDoKICAgICAgICByZXR1cm4gYmVzdAogICAgZCA9IHNoKCJ4ZHB5aW5mbyIsICItZGlzcGxheSIsIGRpc3BsYXkpCiAgICBtID0gcmUuc2VhcmNoKHInZGltZW5zaW9uczpccysoXGQrKXgoXGQrKSBwaXhlbHMnLCBkKQogICAgaWYgbToKICAgICAgICByZXR1cm4gKCJyb290IiwgaW50KG0uZ3JvdXAoMSkpLCBpbnQobS5ncm91cCgyKSksIDAsIDApCiAgICByZXR1cm4gKCJyb290IiwgMTI4MCwgODAwLCAwLCAwKQoKZGVmIGZmbXBlZ19jbWQoZ2VvLCBkaXNwbGF5KToKICAgIF8sIHcsIGgsIHgsIHkgPSBnZW8KICAgIHJldHVybiBbCiAgICAgICAgImZmbXBlZyIsICItaGlkZV9iYW5uZXIiLCAiLWxvZ2xldmVsIiwgIndhcm5pbmciLAogICAgICAgICItZiIsICJ4MTFncmFiIiwgIi1mcmFtZXJhdGUiLCAiMzAiLAogICAgICAgICItdmlkZW9fc2l6ZSIsIGYie3d9eHtofSIsCiAgICAgICAgIi1pIiwgZiJ7ZGlzcGxheX0uMCt7eH0se3l9IiwKICAgICAgICAiLWM6diIsICJsaWJ4MjY0IiwgIi1wcmVzZXQiLCAidWx0cmFmYXN0IiwgIi10dW5lIiwgInplcm9sYXRlbmN5IiwKICAgICAgICAiLXBpeF9mbXQiLCAieXV2NDIwcCIsICItcHJvZmlsZTp2IiwgImJhc2VsaW5lIiwKICAgICAgICAiLWciLCAiMzAiLCAiLWtleWludF9taW4iLCAiMzAiLAogICAgICAgICItYjp2IiwgIjI1MDBrIiwgIi1tYXhyYXRlIiwgIjI1MDBrIiwgIi1idWZzaXplIiwgIjEyNTBrIiwKICAgICAgICAiLWYiLCAibXBlZ3RzIiwgInBpcGU6MSIsCiAgICBdCgpjbGllbnRzID0gc2V0KCkKCmFzeW5jIGRlZiBzdHJlYW1faGFuZGxlcih3cywgKmEpOgogICAgY2xpZW50cy5hZGQod3MpCiAgICB0cnk6CiAgICAgICAgYXN5bmMgZm9yIF8gaW4gd3M6CiAgICAgICAgICAgIHBhc3MKICAgIGV4Y2VwdCBFeGNlcHRpb246CiAgICAgICAgcGFzcwogICAgZmluYWxseToKICAgICAgICBjbGllbnRzLmRpc2NhcmQod3MpCgphc3luYyBkZWYgYnJvYWRjYXN0KGRpc3BsYXkpOgogICAgcHJvYyA9IE5vbmUKICAgIHdoaWxlIFRydWU6CiAgICAgICAgdHJ5OgogICAgICAgICAgICBnZW8gPSBkZXRlY3RfZ2VvKGRpc3BsYXkpCiAgICAgICAgICAgIGxvZygiZ2VvIiwgZ2VvKQogICAgICAgICAgICBzaWduYWwgPSBmIntnZW9bMV19eHtnZW9bMl19eHtnZW9bM119eHtnZW9bNF19IgogICAgICAgICAgICB0cnk6CiAgICAgICAgICAgICAgICBvcGVuKCIvdG1wL3N0cmVhbV9nZW8iLCAidyIpLndyaXRlKHNpZ25hbCkKICAgICAgICAgICAgZXhjZXB0IEV4Y2VwdGlvbjoKICAgICAgICAgICAgICAgIHBhc3MKICAgICAgICAgICAgcHJvYyA9IHN1YnByb2Nlc3MuUG9wZW4oZmZtcGVnX2NtZChnZW8sIGRpc3BsYXkpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdGRvdXQ9c3VicHJvY2Vzcy5QSVBFLCBzdGRlcnI9c3VicHJvY2Vzcy5QSVBFKQogICAgICAgICAgICBsb2coImZmbXBlZyBzdGFydGVkIHBpZCIsIHByb2MucGlkKQogICAgICAgICAgICB3aGlsZSBUcnVlOgogICAgICAgICAgICAgICAgY2h1bmsgPSBwcm9jLnN0ZG91dC5yZWFkKDY0ICogMTAyNCkKICAgICAgICAgICAgICAgIGlmIG5vdCBjaHVuazoKICAgICAgICAgICAgICAgICAgICBlcnIgPSBwcm9jLnN0ZGVyci5yZWFkKCkuZGVjb2RlKGVycm9ycz0iaWdub3JlIikgaWYgcHJvYy5zdGRlcnIgZWxzZSAiIgogICAgICAgICAgICAgICAgICAgIGxvZygiZmZtcGVnIEVPRiIsIGVyclstNTAwOl0pCiAgICAgICAgICAgICAgICAgICAgYnJlYWsKICAgICAgICAgICAgICAgIGlmIGNsaWVudHM6CiAgICAgICAgICAgICAgICAgICAgYXdhaXQgYXN5bmNpby5nYXRoZXIoKlt3cy5zZW5kKGNodW5rKSBmb3Igd3MgaW4gbGlzdChjbGllbnRzKV0sIHJldHVybl9leGNlcHRpb25zPVRydWUpCiAgICAgICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgICAgICAgICBsb2coImJyb2FkY2FzdCBsb29wIGVyciIsIHJlcHIoZSkpCiAgICAgICAgICAgIGF3YWl0IGFzeW5jaW8uc2xlZXAoMykKICAgICAgICBmaW5hbGx5OgogICAgICAgICAgICBpZiBwcm9jIGlzIG5vdCBOb25lOgogICAgICAgICAgICAgICAgdHJ5OgogICAgICAgICAgICAgICAgICAgIHByb2MudGVybWluYXRlKCkKICAgICAgICAgICAgICAgIGV4Y2VwdCBFeGNlcHRpb246CiAgICAgICAgICAgICAgICAgICAgcGFzcwogICAgICAgIGF3YWl0IGFzeW5jaW8uc2xlZXAoMSkKCmRlZiBhZGIoKmFyZ3MpOgogICAgdHJ5OgogICAgICAgIHN1YnByb2Nlc3MucnVuKFsiYWRiIl0gKyBsaXN0KGFyZ3MpLCBjYXB0dXJlX291dHB1dD1UcnVlLCB0aW1lb3V0PTE1KQogICAgZXhjZXB0IEV4Y2VwdGlvbiBhcyBlOgogICAgICAgIGxvZygiYWRiIGVyciIsIHJlcHIoZSkpCgphc3luYyBkZWYgY3RybF9oYW5kbGVyKHdzLCAqYSk6CiAgICBsb2coImN0cmwgY2xpZW50Iiwgd3MucmVtb3RlX2FkZHJlc3MpCiAgICB0cnk6CiAgICAgICAgYXN5bmMgZm9yIG1zZyBpbiB3czoKICAgICAgICAgICAgdHJ5OgogICAgICAgICAgICAgICAgZCA9IGpzb24ubG9hZHMobXNnKQogICAgICAgICAgICAgICAgdCA9IGQuZ2V0KCJ0IikKICAgICAgICAgICAgICAgIGlmIHQgPT0gInRhcCI6CiAgICAgICAgICAgICAgICAgICAgYWRiKCJzaGVsbCIsICJpbnB1dCIsICJ0YXAiLCBzdHIoaW50KGRbIngiXSkpLCBzdHIoaW50KGRbInkiXSkpKQogICAgICAgICAgICAgICAgZWxpZiB0ID09ICJzd2lwZSI6CiAgICAgICAgICAgICAgICAgICAgYWRiKCJzaGVsbCIsICJpbnB1dCIsICJzd2lwZSIsCiAgICAgICAgICAgICAgICAgICAgICAgIHN0cihpbnQoZFsieDEiXSkpLCBzdHIoaW50KGRbInkxIl0pKSwKICAgICAgICAgICAgICAgICAgICAgICAgc3RyKGludChkWyJ4MiJdKSksIHN0cihpbnQoZFsieTIiXSkpLCBzdHIoaW50KGQuZ2V0KCJkIiwgMTIwKSkpKQogICAgICAgICAgICAgICAgZWxpZiB0ID09ICJrZXkiOgogICAgICAgICAgICAgICAgICAgIGFkYigic2hlbGwiLCAiaW5wdXQiLCAia2V5ZXZlbnQiLCBzdHIoaW50KGRbImsiXSkpKQogICAgICAgICAgICAgICAgZWxpZiB0ID09ICJ0ZXh0IjoKICAgICAgICAgICAgICAgICAgICBhZGIoInNoZWxsIiwgImlucHV0IiwgInRleHQiLCBzdHIoZC5nZXQoInMiLCAiIikpWzoyMDBdKQogICAgICAgICAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6CiAgICAgICAgICAgICAgICBsb2coImN0cmwgZXJyIiwgcmVwcihlKSkKICAgIGV4Y2VwdCBFeGNlcHRpb246CiAgICAgICAgcGFzcwoKYXN5bmMgZGVmIG1haW4oKToKICAgIGxvZygic3RyZWFtX3NlcnZlciBzdGFydCIsIG9zLmdldHVpZCgpKQogICAgZGlzcGxheSA9IG9zLmVudmlyb24uZ2V0KCJESVNQTEFZIiwgIjowIikKICAgIGF3YWl0IGFzeW5jaW8uZ2F0aGVyKAogICAgICAgIGFzeW5jaW8uY3JlYXRlX3Rhc2soYnJvYWRjYXN0KGRpc3BsYXkpKSwKICAgICAgICAqW2FzeW5jaW8uY3JlYXRlX3Rhc2socykgZm9yIHMgaW4gKAogICAgICAgICAgICBhc3luY2lvLmVuc3VyZV9mdXR1cmUoX3NlcnZlKHN0cmVhbV9oYW5kbGVyLCBTVFJFQU1fUE9SVCkpLAogICAgICAgICAgICBhc3luY2lvLmVuc3VyZV9mdXR1cmUoX3NlcnZlKGN0cmxfaGFuZGxlciwgQ1RSTF9QT1JUKSksCiAgICAgICAgKV0sCiAgICApCgphc3luYyBkZWYgX3NlcnZlKGgsIHBvcnQpOgogICAgZnJvbSB3ZWJzb2NrZXRzLnNlcnZlciBpbXBvcnQgc2VydmUKICAgIGFzeW5jIHdpdGggc2VydmUoaCwgIjAuMC4wLjAiLCBwb3J0KToKICAgICAgICBsb2coIndzIGxpc3RlbmluZyIsIHBvcnQpCiAgICAgICAgYXdhaXQgYXN5bmNpby5GdXR1cmUoKQoKaWYgX19uYW1lX18gPT0gIl9fbWFpbl9fIjoKICAgIGFzeW5jaW8ucnVuKG1haW4oKSk=" | base64 -d > stream_server.py
+          docker cp stream_server.py android:/tmp/stream_server.py
+          docker exec -d -e DISPLAY=:0 android python3 /tmp/stream_server.py
+          sleep 12
+          docker exec android sh -c "cat /tmp/stream_server.log 2>/dev/null; echo ---; cat /tmp/stream_geo 2>/dev/null || echo GEOM_PENDING"
+          docker exec android ps aux | grep -E 'ffmpeg|stream_server' | head -5 || true
+
       - name: Install Cloudflared
         run: |
           curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
@@ -120,25 +133,28 @@ jobs:
       - name: Start Cloudflared tunnel
         run: |
           nohup cloudflared tunnel --url http://localhost:6080 --no-autoupdate --edge-ip-version auto --protocol http2 --logfile cloudflared.log --loglevel info &
+          nohup cloudflared tunnel --url http://localhost:9010 --no-autoupdate --edge-ip-version auto --protocol http2 --logfile cf-stream.log --loglevel info &
+          nohup cloudflared tunnel --url http://localhost:9011 --no-autoupdate --edge-ip-version auto --protocol http2 --logfile cf-control.log --loglevel info &
           echo $! > cloudflared.pid
-          sleep 20
-          cat cloudflared.log || true
+          sleep 25
+          echo "=== vnc ==="; grep -oE 'https://[a-zA-Z0-9-]+\.trycloudflare\.com' cloudflared.log | head -1 || true
+          echo "=== stream ==="; grep -oE 'https://[a-zA-Z0-9-]+\.trycloudflare\.com' cf-stream.log | head -1 || true
+          echo "=== control ==="; grep -oE 'https://[a-zA-Z0-9-]+\.trycloudflare\.com' cf-control.log | head -1 || true
 
       - name: Get tunnel URL + commit android-link.txt
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          URL=""
-          for i in $(seq 1 60); do
-            if grep -oE 'https://[a-zA-Z0-9-]+\.trycloudflare\.com' cloudflared.log | head -1 > /tmp/url.txt && [ -s /tmp/url.txt ]; then
-              URL=$(cat /tmp/url.txt)
-              break
-            fi
-            echo "⏳ Waiting for Cloudflared URL... ($i/60)"
+          geturl() { grep -oE 'https://[a-zA-Z0-9-]+\.trycloudflare\.com' "$1" | head -1; }
+          URL=""; SURL=""; CURL=""
+          for i in $(seq 1 90); do
+            URL=$(geturl cloudflared.log); SURL=$(geturl cf-stream.log); CURL=$(geturl cf-control.log)
+            if [ -n "$URL" ] && [ -n "$SURL" ] && [ -n "$CURL" ]; then break; fi
+            echo "⏳ Waiting for Cloudflared URLs (vnc/stream/control)... ($i/90) ${URL:+vnc=OK} ${SURL:+stream=OK} ${CURL:+control=OK}"
             sleep 5
           done
 
-          if [ -z "$URL" ]; then
+          if [ -z "$URL" ] || [ -z "$SURL" ] || [ -z "$CURL" ]; then
             echo "TUNNEL_FAILED: no trycloudflare URL after 5 minutes" > android-link.txt
           else
             FULL="$URL/vnc.html?autoconnect=true&resize=scale"
@@ -146,17 +162,20 @@ jobs:
               echo '======================================================='
               echo 'CLOUD ANDROID - DucThang x TrueHieu Edition'
               echo '======================================================='
-              echo "URL       : $FULL"
-              echo "Device    : Pixel 6 (Android 14, x86_64)"
+              echo "VNC_URL   : $FULL"
+              echo "STREAM_URL: $SURL"
+              echo "CTRL_URL  : $CURL"
+              echo "Device    : Pixel 8 (Android 14, x86_64)"
               echo "Config    : 4GB RAM / 4 cores / KVM / SwiftShader"
               echo "ADB       : docker exec android adb ..."
               echo "Host      : trycloudflare"
               echo "Created   : $(date -u '+%Y-%m-%d %H:%M:%S') UTC"
               echo '======================================================='
             } > android-link.txt
-            echo "✅ Android URL: $FULL"
+            echo "✅ VNC: $FULL"
+            echo "✅ STREAM: $SURL"
+            echo "✅ CTRL: $CURL"
           fi
-
           git config user.email "fcp@freecloudphone.com"
           git config user.name "FREE CLOUD PHONE"
           git add android-link.txt
