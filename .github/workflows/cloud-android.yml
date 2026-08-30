@@ -51,30 +51,33 @@ jobs:
             -p 6080:6080 \
             -p 5554:5554 -p 5555:5555 \
             -e EMULATOR_DEVICE="Pixel 6" \
+            -e EMULATOR_PLATFORM_VERSION=14 \
             -e WEB_VNC=true \
             -e EMULATOR_NO_SKIN=true \
-            -e EMULATOR_HEADLESS=false \
-            -e EMULATOR_ARGS="-memory 4096 -cores 4 -accel on -gpu swiftshader_indirect -no-snapshot -no-snapshot-save -wipe-data -no-boot-anim -no-audio -camera-back none -camera-front none -feature -Vulkan" \
+            -e EMULATOR_HEADLESS=true \
+            -e EMULATOR_ARGS="-no-window -no-audio -no-boot-anim -no-metrics -memory 4096 -cores 4 -accel on -gpu swiftshader_indirect -no-snapshot" \
             -e WEB_LOG=true \
             -v "$GITHUB_WORKSPACE/android-data:/data" \
             budtmo/docker-android:emulator_14.0
           echo "Container started, waiting for emulator boot..."
-          sleep 15
+          sleep 30
+          docker exec android adb devices || true
           docker logs android --tail 50 || true
           docker ps -a
 
       - name: Wait for Android boot (with Droid freeze recovery)
         run: |
           set -e
-          for i in $(seq 1 60); do
+          for i in $(seq 1 90); do
             STATUS=$(docker exec android adb shell getprop sys.boot_completed 2>/dev/null || echo "0")
             BOOTANIM=$(docker exec android adb shell getprop init.svc.bootanim 2>/dev/null || echo "running")
-            echo "⏳ Check $i/60 — boot_completed=$STATUS bootanim=$BOOTANIM"
-            # Droid logo freeze: bootanim still running after 3 min → force restart
+            echo "⏳ Check $i/90 — boot_completed=$STATUS bootanim=$BOOTANIM"
+            # Droid logo freeze recovery: adb daemon stale or bootanim stuck → restart adb, don't nuke container
             if [ "$i" -eq 30 ] && [ "$STATUS" != "1" ]; then
-              echo "⚠️ Detected Droid logo freeze at 5min, applying fix..."
-              docker logs android --tail 100 || true
-              docker exec android adb shell dumpsys window 2>&1 | head -n 30 || true
+              echo "⚠️ Detected slow boot at 5min, recovering adb (no container restart)..."
+              docker exec android adb kill-server 2>/dev/null || true
+              docker exec android adb start-server 2>/dev/null || true
+              docker exec android adb wait-for-device 2>/dev/null || true
               # Try to unfreeze: kill bootanim, dismiss keyguard
               docker exec android adb shell "setprop ctl.stop bootanim" 2>/dev/null || true
               docker exec android adb shell input keyevent 82 2>/dev/null || true
@@ -95,7 +98,7 @@ jobs:
               echo "❌ Container died, restarting..."
               docker logs android --tail 100 || true
               docker rm -f android 2>/dev/null || true
-              docker run -d --name android --device /dev/kvm --privileged --shm-size=2g -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="Pixel 6" -e WEB_VNC=true -e EMULATOR_ARGS="-memory 4096 -cores 4 -accel on -gpu swiftshader_indirect -no-snapshot -wipe-data" budtmo/docker-android:emulator_14.0
+              docker run -d --name android --device /dev/kvm --privileged --shm-size=2g -p 6080:6080 -p 5554:5554 -p 5555:5555 -e EMULATOR_DEVICE="Pixel 6" -e EMULATOR_PLATFORM_VERSION=14 -e WEB_VNC=true -e EMULATOR_NO_SKIN=true -e EMULATOR_HEADLESS=true -e EMULATOR_ARGS="-no-window -no-audio -no-boot-anim -no-metrics -memory 4096 -cores 4 -accel on -gpu swiftshader_indirect -no-snapshot" -e WEB_LOG=true budtmo/docker-android:emulator_14.0
             fi
             sleep 10
           done
