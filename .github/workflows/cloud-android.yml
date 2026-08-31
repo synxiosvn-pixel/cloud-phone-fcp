@@ -125,31 +125,35 @@ jobs:
 
       - name: Setup streamer (static ffmpeg + websockets via pip, as root)
         run: |
-          cat > setup_stream.sh <<'BASH'
-          #!/bin/bash
-          set -e
-          if ! command -v ffmpeg >/dev/null 2>&1; then
-            echo "downloading static ffmpeg..."
-            python3 - >/dev/null 2>&1 <<'PY'
-          import urllib.request, tarfile, shutil, glob, os
-          url='https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz'
-          req=urllib.request.Request(url, headers={'User-Agent':'x'})
-          data=urllib.request.urlopen(req, timeout=240).read()
-          open('/tmp/ff.tar.xz','wb').write(data)
-          t=tarfile.open('/tmp/ff.tar.xz'); t.extractall('/tmp'); t.close()
-          p=glob.glob('/tmp/ffmpeg-*-static/ffmpeg')[0]
-          shutil.copy(p, '/usr/local/bin/ffmpeg'); os.chmod('/usr/local/bin/ffmpeg', 0o755)
-          print('ffmpeg installed at /usr/local/bin/ffmpeg')
-          PY
-          fi
-          ffmpeg -version 2>&1 | head -1
-          mkdir -p /opt/ws
-          python3 -m pip -q install --no-input --target /opt/ws websockets 2>/tmp/pip.err || python3 -m pip -q install --no-input --break-system-packages --target /opt/ws websockets 2>>/tmp/pip.err
-          tail -2 /tmp/pip.err || true
-          PYTHONPATH=/opt/ws python3 -c "import websockets;print('websockets', websockets.__version__)"
-          BASH
-          docker cp setup_stream.sh android:/tmp/setup_stream.sh
-          docker exec -u 0 android bash /tmp/setup_stream.sh'
+          cat > /tmp/ffget.py <<'PYIMPORT'
+import urllib.request, tarfile, shutil, glob, os
+url='https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz'
+req=urllib.request.Request(url, headers={'User-Agent':'free-cloud-phone'})
+data=urllib.request.urlopen(req, timeout=300).read()
+open('/tmp/ff.tar.xz','wb').write(data)
+t=tarfile.open('/tmp/ff.tar.xz'); t.extractall('/tmp'); t.close()
+p=glob.glob('/tmp/ffmpeg-*-static/ffmpeg')[0]
+shutil.copy(p, '/usr/local/bin/ffmpeg'); os.chmod('/usr/local/bin/ffmpeg', 0o755)
+print('ffmpeg copied')
+PYIMPORT
+          cat > /tmp/setup_stream.sh <<'BASHMARK'
+#!/bin/bash
+set -e
+if command -v ffmpeg >/dev/null 2>&1; then
+  echo "ffmpeg present: $(ffmpeg -version 2>&1 | head -1)"
+else
+  echo "downloading static ffmpeg via python..."
+  python3 /tmp/ffget.py
+  echo "installed: $(/usr/local/bin/ffmpeg -version 2>&1 | head -1)"
+fi
+mkdir -p /opt/ws
+python3 -m pip -q install --no-input --target /opt/ws websockets 2>/tmp/pip.err || python3 -m pip -q install --no-input --break-system-packages --target /opt/ws websockets 2>>/tmp/pip.err
+tail -2 /tmp/pip.err || true
+PYTHONPATH=/opt/ws python3 -c "import websockets;print('websockets', websockets.__version__)"
+BASHMARK
+          docker cp /tmp/ffget.py android:/tmp/ffget.py
+          docker cp /tmp/setup_stream.sh android:/tmp/setup_stream.sh
+          docker exec -u 0 android bash /tmp/setup_stream.sh
 
       - name: Start H.264 stream server (WS video 9010 + WS input 9011)
         run: |
