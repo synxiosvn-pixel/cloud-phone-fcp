@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://leon-homepage-techno-fact.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://scanning-wind-pat-tobago.trycloudflare.com
-CTRL_URL  : https://charlotte-voluntary-acknowledge-curves.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-08-31 02:40:45 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-08-31 02:44:04 UTC
