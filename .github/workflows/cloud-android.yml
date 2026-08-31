@@ -2,8 +2,8 @@ name: Cloud Emulator
 
 on:
   workflow_dispatch:
-    schedule:
-      - cron: "0 */5 * * *"
+  schedule:
+    - cron: "0 */5 * * *"
 
 concurrency:
   group: vps-android-runner
