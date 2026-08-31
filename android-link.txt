@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://videos-wed-information-disco.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://houston-volt-collector-apollo.trycloudflare.com
-CTRL_URL  : https://hydrogen-screens-publishers-enquiries.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-08-31 11:34:20 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-08-31 20:44:04 UTC
