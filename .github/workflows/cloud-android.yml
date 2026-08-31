@@ -20,6 +20,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Mark booting (reset android-link.txt, avoid stale link)
+        run: |
+          {
+            echo 'STATUS: booting'
+            echo "Run   : $(date -u '+%Y-%m-%d %H:%M:%S') UTC"
+          } > android-link.txt
+          git add android-link.txt
+          git commit -m "Android booting..." --allow-empty
+          git push origin main --force-with-lease || git push origin main
+
       - name: Enable KVM (fix Droid logo freeze)
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
