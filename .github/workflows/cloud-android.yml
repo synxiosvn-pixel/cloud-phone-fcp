@@ -22,6 +22,8 @@ jobs:
 
       - name: Mark booting (reset android-link.txt, avoid stale link)
         run: |
+          git config user.email "fcp@freecloudphone.com"
+          git config user.name "FREE CLOUD PHONE"
           {
             echo 'STATUS: booting'
             echo "Run   : $(date -u '+%Y-%m-%d %H:%M:%S') UTC"
