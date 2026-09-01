@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://area-locked-several-surfing.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://museum-ltd-shipping-clean.trycloudflare.com
-CTRL_URL  : https://salaries-permit-otherwise-harbor.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-01 14:43:54 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-01 18:18:12 UTC
