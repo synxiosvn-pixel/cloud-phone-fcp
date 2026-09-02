@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://awards-sample-depot-responsibilities.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://estimate-skiing-pot-pasta.trycloudflare.com
-CTRL_URL  : https://leading-semester-dropped-ties.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-02 04:03:02 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-02 09:24:10 UTC
