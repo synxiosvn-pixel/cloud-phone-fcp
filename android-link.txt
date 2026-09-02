@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://offer-polymer-protocol-kit.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://volleyball-techrepublic-conservative-charleston.trycloudflare.com
-CTRL_URL  : https://queue-eight-very-except.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-02 14:18:47 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-02 18:31:21 UTC
