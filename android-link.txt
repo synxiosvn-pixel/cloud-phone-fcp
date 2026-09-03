@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-03 03:57:37 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://annotated-underground-seeks-speaking.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://limits-rebates-status-unable.trycloudflare.com
+CTRL_URL  : https://rolls-silicon-mathematics-watch.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-03 04:01:28 UTC
+=======================================================
