@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://champagne-conflicts-romance-citation.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://convert-crowd-cam-withdrawal.trycloudflare.com
-CTRL_URL  : https://instructor-prairie-modems-lyrics.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-02 22:33:39 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-03 03:57:37 UTC
