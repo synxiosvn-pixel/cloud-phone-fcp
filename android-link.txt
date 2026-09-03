@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://pizza-timing-rhode-respond.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://rental-wants-msie-timber.trycloudflare.com
-CTRL_URL  : https://battery-comprehensive-kinda-vpn.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-03 18:31:34 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-03 22:28:04 UTC
