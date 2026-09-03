@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-03 14:17:57 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://anne-mic-configure-coaching.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://observed-areas-acids-chip.trycloudflare.com
+CTRL_URL  : https://motorola-ottawa-diverse-interviews.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-03 14:22:29 UTC
+=======================================================
