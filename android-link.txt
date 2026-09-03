@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://edit-changed-grove-symptoms.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://employee-evaluation-launch-charter.trycloudflare.com
-CTRL_URL  : https://insights-dramatically-gtk-except.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-03 09:37:36 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-03 14:17:57 UTC
