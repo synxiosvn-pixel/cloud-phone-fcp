@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://musical-consultant-spice-method.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://submitting-authority-attempts-convicted.trycloudflare.com
-CTRL_URL  : https://incidents-ada-presentations-several.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-03 22:31:53 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-04 03:59:21 UTC
