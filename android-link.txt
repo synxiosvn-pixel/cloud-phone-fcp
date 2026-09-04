@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-04 18:13:51 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://marble-date-gardening-notre.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://respiratory-terrorism-pennsylvania-commodities.trycloudflare.com
+CTRL_URL  : https://ages-franchise-message-britney.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-04 18:18:17 UTC
+=======================================================
