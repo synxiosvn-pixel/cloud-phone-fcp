@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://parents-delhi-imported-pull.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://bin-dim-licenses-extended.trycloudflare.com
-CTRL_URL  : https://sterling-homeland-spoken-lives.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-05 08:58:13 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-05 13:20:43 UTC
