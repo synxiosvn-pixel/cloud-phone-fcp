@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://expertise-dayton-introduce-broadcasting.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://biggest-enjoy-excellence-icon.trycloudflare.com
-CTRL_URL  : https://situations-extremely-dividend-dare.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-05 17:18:26 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-05 21:59:49 UTC
