@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-06 09:14:26 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://leads-reforms-hosted-testimony.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://homeland-found-bars-photographer.trycloudflare.com
+CTRL_URL  : https://binary-gnome-volleyball-hypothesis.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-06 09:18:16 UTC
+=======================================================
