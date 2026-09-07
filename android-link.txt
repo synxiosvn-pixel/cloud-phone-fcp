@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://walks-struck-maintain-survivor.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://mel-settle-roller-jumping.trycloudflare.com
-CTRL_URL  : https://street-expenditures-parcel-selections.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-07 10:06:55 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-07 19:04:09 UTC
