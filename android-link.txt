@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://air-shelf-seven-shown.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://quarter-hostels-heat-saw.trycloudflare.com
-CTRL_URL  : https://regardless-pill-notes-his.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-07 19:08:06 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-07 22:43:08 UTC
