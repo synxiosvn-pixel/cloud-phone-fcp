@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://surfaces-interactive-editions-mon.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://synthesis-sorry-grow-detection.trycloudflare.com
-CTRL_URL  : https://strengthen-angeles-itself-cemetery.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-08 22:33:49 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-09 04:10:37 UTC
