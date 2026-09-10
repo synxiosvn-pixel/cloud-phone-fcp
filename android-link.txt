@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://beautiful-sonic-mike-professional.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://notebook-rolling-prospective-consumers.trycloudflare.com
-CTRL_URL  : https://treatment-doe-deer-until.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-10 09:33:58 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-10 14:13:07 UTC
