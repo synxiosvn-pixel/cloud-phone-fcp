@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-10 04:08:07 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://dennis-prices-disks-sunset.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://leasing-tramadol-wendy-hosting.trycloudflare.com
+CTRL_URL  : https://submitting-declare-symantec-seminars.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-10 04:12:16 UTC
+=======================================================
