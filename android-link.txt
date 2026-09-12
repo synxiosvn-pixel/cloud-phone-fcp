@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://cattle-script-authors-farmers.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://sitting-tariff-karen-blades.trycloudflare.com
-CTRL_URL  : https://brain-rna-evidence-guardian.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-12 04:11:18 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-12 09:09:07 UTC
