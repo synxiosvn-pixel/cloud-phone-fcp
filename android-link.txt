@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-13 04:18:16 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://couple-satisfactory-correct-halo.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://continuously-brooklyn-adoption-scientist.trycloudflare.com
+CTRL_URL  : https://grand-gnu-popularity-kirk.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-13 04:22:14 UTC
+=======================================================
