@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-13 18:01:35 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://buried-premiere-mostly-valid.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://founded-participating-essentials-preferences.trycloudflare.com
+CTRL_URL  : https://tampa-quit-lime-tips.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-13 18:05:32 UTC
+=======================================================
