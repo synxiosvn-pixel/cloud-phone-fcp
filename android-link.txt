@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://unix-nascar-enlargement-sip.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://talking-end-sorts-crossword.trycloudflare.com
-CTRL_URL  : https://mines-pda-jamie-bent.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-14 10:33:05 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-14 19:47:02 UTC
