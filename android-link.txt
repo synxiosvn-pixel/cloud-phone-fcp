@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://proprietary-reactions-books-remark.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://movies-blind-blue-duke.trycloudflare.com
-CTRL_URL  : https://debut-sealed-donor-gps.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-15 14:51:48 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-15 18:50:59 UTC
