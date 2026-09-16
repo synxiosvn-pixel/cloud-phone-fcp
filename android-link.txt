@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://sega-configuring-deaf-thumbzilla.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://manitoba-denied-wall-technology.trycloudflare.com
-CTRL_URL  : https://odds-pursue-badly-muslim.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-16 04:24:55 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-16 09:47:36 UTC
