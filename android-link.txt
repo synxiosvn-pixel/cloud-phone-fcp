@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-16 14:45:25 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://mat-weed-possibility-gabriel.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://improved-brochures-almost-prices.trycloudflare.com
+CTRL_URL  : https://smoking-vienna-ordering-belfast.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-16 14:49:18 UTC
+=======================================================
