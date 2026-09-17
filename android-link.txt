@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://convertible-pan-adventure-fixtures.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://patients-metric-bar-lace.trycloudflare.com
-CTRL_URL  : https://elderly-nobody-lunch-flowers.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-16 22:52:24 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-17 04:27:07 UTC
