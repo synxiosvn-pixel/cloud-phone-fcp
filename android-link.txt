@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-18 22:27:01 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://article-ipaq-fan-valentine.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://phase-conducted-announcement-remark.trycloudflare.com
+CTRL_URL  : https://league-runs-container-ministries.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-18 22:30:56 UTC
+=======================================================
