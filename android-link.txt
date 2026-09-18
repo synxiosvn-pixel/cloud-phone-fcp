@@ -1,12 +1,2 @@
-=======================================================
-CLOUD ANDROID - DucThang x TrueHieu Edition
-=======================================================
-VNC_URL   : https://games-ruled-keyword-email.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
-STREAM_URL: https://john-breaks-immediately-least.trycloudflare.com
-CTRL_URL  : https://excluded-cook-shark-mature.trycloudflare.com
-Device    : Pixel 8 (Android 14, x86_64)
-Config    : 4GB RAM / 4 cores / KVM / SwiftShader
-ADB       : docker exec android adb ...
-Host      : trycloudflare
-Created   : 2026-09-18 04:15:13 UTC
-=======================================================
+STATUS: booting
+Run   : 2026-09-18 09:32:17 UTC
