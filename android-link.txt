@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-19 04:08:07 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://burning-heating-nothing-symantec.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://eddie-ebony-tradition-hebrew.trycloudflare.com
+CTRL_URL  : https://sunset-macintosh-specials-geology.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-19 04:12:02 UTC
+=======================================================
