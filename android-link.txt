@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-19 17:53:26 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://drink-inquire-pulse-hospitals.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://cancel-ahead-stable-knight.trycloudflare.com
+CTRL_URL  : https://robinson-installation-silver-caribbean.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-19 17:57:24 UTC
+=======================================================
