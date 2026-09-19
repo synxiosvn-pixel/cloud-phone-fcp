@@ -1,2 +1,12 @@
-STATUS: booting
-Run   : 2026-09-19 09:18:44 UTC
+=======================================================
+CLOUD ANDROID - DucThang x TrueHieu Edition
+=======================================================
+VNC_URL   : https://their-vcr-tramadol-institute.trycloudflare.com/vnc.html?autoconnect=true&resize=scale
+STREAM_URL: https://enjoying-galleries-gain-corpus.trycloudflare.com
+CTRL_URL  : https://mas-loading-discover-accepts.trycloudflare.com
+Device    : Pixel 8 (Android 14, x86_64)
+Config    : 4GB RAM / 4 cores / KVM / SwiftShader
+ADB       : docker exec android adb ...
+Host      : trycloudflare
+Created   : 2026-09-19 09:22:34 UTC
+=======================================================
